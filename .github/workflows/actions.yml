@@ -9,13 +9,17 @@ jobs:
       - name: List Files Before
         run: |
           pwd
-          ls
+          ls -a
       - name: Checkout
         uses: actions/checkout@v1
       - name: List Files After
         run: |
           pwd
-          ls
+          ls -a
+          echo GITHUB_SHA: ${GITHUB_SHA}
+          echo GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}
+          echo GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}
+          echo Token: "${{ github.token }}"
       - name: Simple JS Action
         id: greet
         uses: actions/hello-world-javascript-action@v1
