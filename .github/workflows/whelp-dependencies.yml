@@ -15,7 +15,7 @@ jobs:
   build-whelp-dependencies:
     name: Build the Whelp tests docker image
     runs-on: self-hosted
-    timeout-minutes: 30
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
