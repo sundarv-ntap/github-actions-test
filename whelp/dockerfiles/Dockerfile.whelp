@@ -1,32 +1,14 @@
 FROM docker.repo.eng.netapp.com/python:3.10-slim-buster
 
-ARG NODE_VERSION="14.16.1"
-ARG AWS_CLI_INSTALLER="awscli-exe-linux-x86_64-2.6.4.zip"
-ARG EKSCTL_VERSION="0.97.0"
-ARG EKSCTL_INSTALLER="eksctl_Linux_amd64.tar.gz"
-
 ENV PYTHONPATH /usr/src/whelp:/usr/src/acc-operator:/usr/src/scripts:/usr/src/scripts/deploy-astra-service
-
-COPY debian_repomirror.list /etc/apt/sources.list
-
-# Set the default working directory for the container.
-WORKDIR /usr/src/whelp
-
-# Set the pip.conf to point to the internal NetApp pypi mirror.
-RUN echo "[global]" > /etc/pip.conf; \
-    echo "index-url = https://python.repo.eng.netapp.com/simple" >> /etc/pip.conf; \
-    echo "trusted-host = python.repo.eng.netapp.com" >> /etc/pip.conf;
 
 # Add the Google Chrome repository and download the public key for signed Google
 # packages in order to install the latest version of Chrome needed for the
 # Whelp UI Tests. Also install cURL to download the key and gnupg needed for
 # Chrome. NOTE: Repository not added to whelp/debian_repomirror.list due to
 # the packages needing the public key before use.
+#
 RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg && \
-    curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add && \
-    echo "deb http://repomirror.rtp.openeng.netapp.com/chrome-apt/mirror/dl.google.com/linux/chrome/deb stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    echo "deb http://repomirror.rtp.openeng.netapp.com/google-cloud-platform-apt/mirror/packages.cloud.google.com/apt cloud-sdk-buster main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
     apt-get clean autoclean && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 
@@ -50,11 +32,6 @@ RUN apt-get update && \
     vim && \
     apt-get clean autoclean && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
-
-# Install NetApp certificates
-COPY misc/NetApp_Root_1_CA.crt /usr/local/share/ca-certificates/
-COPY misc/NetApp_Issuing_CA_1.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates --fresh
 
 # Install Kubectl and helm (for the deployment tools).
 # See: https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
