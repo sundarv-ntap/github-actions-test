@@ -1,0 +1,3 @@
+deb http://repomirror.rtp.openeng.netapp.com/debian buster main
+deb http://repomirror.rtp.openeng.netapp.com/debian-security buster/updates main
+deb http://repomirror.rtp.openeng.netapp.com/debian buster-updates main
