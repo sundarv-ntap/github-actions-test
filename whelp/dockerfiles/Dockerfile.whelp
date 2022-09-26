@@ -56,27 +56,6 @@ RUN curl -sLO "https://storage.googleapis.com/kubernetes-release/release/v1.24.0
     && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
     && curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | /bin/bash
 
-# Install AWS CLI
-RUN curl -o ${AWS_CLI_INSTALLER} "https://awscli.amazonaws.com/${AWS_CLI_INSTALLER}" \
-    && apt-get update \
-    && apt-get install -y unzip \
-    && unzip ${AWS_CLI_INSTALLER} \
-    && apt-get -y remove unzip \
-    && ./aws/install \
-    && rm -rf ./aws \
-    && rm ${AWS_CLI_INSTALLER} \
-    && aws --version \
-    && apt-get clean autoclean \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
-
-# Install EKSCTL CLI (for AWS EKS tests)
-RUN curl -sLO "https://github.com/weaveworks/eksctl/releases/download/v${EKSCTL_VERSION}/${EKSCTL_INSTALLER}" \
-    && tar xz -f  ${EKSCTL_INSTALLER} \
-    && mv ./eksctl /usr/local/bin \
-    && rm -rf ./eksctl \
-    && rm ${EKSCTL_INSTALLER} \
-    && eksctl version
-
 # Install tridentctl - Used for ontap snapmirror setup (required for Appmirror/replication tests)
 RUN wget https://github.com/NetApp/trident/releases/download/v22.07.0/trident-installer-22.07.0.tar.gz \
     && tar xzf trident-installer-22.07.0.tar.gz trident-installer/tridentctl \
