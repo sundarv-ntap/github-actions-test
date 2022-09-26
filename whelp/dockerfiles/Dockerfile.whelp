@@ -1,5 +1,10 @@
 FROM docker.repo.eng.netapp.com/python:3.10-slim-buster
 
+ARG NODE_VERSION="14.16.1"
+ARG AWS_CLI_INSTALLER="awscli-exe-linux-x86_64-2.6.4.zip"
+ARG EKSCTL_VERSION="0.97.0"
+ARG EKSCTL_INSTALLER="eksctl_Linux_amd64.tar.gz"
+
 ENV PYTHONPATH /usr/src/whelp:/usr/src/acc-operator:/usr/src/scripts:/usr/src/scripts/deploy-astra-service
 
 COPY debian_repomirror.list /etc/apt/sources.list
