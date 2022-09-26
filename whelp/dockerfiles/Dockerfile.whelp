@@ -17,8 +17,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     gcc \
     g++ \
-    google-chrome-stable \
-    google-cloud-sdk \
     python3-dev \
     iputils-ping \
     linux-libc-dev \
