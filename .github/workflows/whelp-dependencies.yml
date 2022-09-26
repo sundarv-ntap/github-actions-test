@@ -2,20 +2,14 @@ name: Build Whelp Dependencies Docker Image
 
 on:
   push:
-    paths:
-      - 'whelp/dockerfiles/Dockerfile.whelp'
-      - 'whelp/requirements.txt'
-      - 'whelp/debian_repomirror.list'
     branches:
-      - '**'
-    tags-ignore:
       - '**'
 
 jobs:
   build-whelp-dependencies:
     name: Build the Whelp tests docker image
     runs-on: self-hosted
-    timeout-minutes: 5
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
