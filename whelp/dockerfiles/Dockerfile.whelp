@@ -12,7 +12,7 @@ RUN echo "[global]" > /etc/pip.conf; \
 # Whelp UI Tests. Also install cURL to download the key and gnupg needed for
 # Chrome. NOTE: Repository not added to whelp/debian_repomirror.list due to
 # the packages needing the public key before use.
-#
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     gcc \
