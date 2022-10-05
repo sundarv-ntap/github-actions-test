@@ -3,7 +3,7 @@ name: Build Whelp Dependencies Docker Image
 on:
   push:
     branches:
-      - '**'
+      - master
 
 jobs:
   build-whelp-dependencies:
@@ -17,3 +17,4 @@ jobs:
         run: docker build -f whelp/dockerfiles/Dockerfile.whelp -t docker.repo.eng.netapp.com/global/astra/whelp-dependencies:$(echo $GITHUB_SHA | head -c7) whelp
       - name: Clean up extraneous docker artifacts
         run: docker system prune -af
+
