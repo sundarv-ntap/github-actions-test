@@ -3,7 +3,7 @@ name: Build Whelp Dependencies Docker Image
 on:
   push:
     branches:
-      - master
+      - '**'
 
 jobs:
   build-whelp-dependencies:
